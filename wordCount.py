@@ -44,6 +44,7 @@ with open(inputFname, 'r') as inputFile:
                 word = word.lower() 
                 master[word]= master[word]+1
             
+master  = dict(sorted(master.items()))
 
 for key in master:
     value = master[key]
