@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep  1 14:53:20 2019
-
-@author: adrian
+@author: Adrian Sosa
 """
 
 import sys        # command line arguments
 import re         # regular expression tools
 import os         # checking if file exists
-import subprocess # executing program
 from collections import defaultdict
 
 # set input and output files
@@ -26,9 +23,8 @@ if not os.path.exists(inputFname):
     exit()
 
 
-#master dictionary
+#master dictionary, all word counts set to begin at 0
 master = {}
-#master.setdefault(0) 
 master = defaultdict(lambda:0,master)  
     
 # attempt to open input file
@@ -36,6 +32,7 @@ with open(inputFname, 'r') as inputFile:
     for line in inputFile:
         # get rid of newline characters
         line = line.strip()
+        # remove non-letter characters
         line = re.sub('[!@#$-:,;"]', ' ', line)
         # split line on whitespace and punctuation
         line = re.split('[ \t]', line)
@@ -44,7 +41,8 @@ with open(inputFname, 'r') as inputFile:
             if len(word) != 0 :
                 word = word.lower() 
                 master[word]= master[word]+1
-            
+                
+# sort words in dictionary          
 master  = dict(sorted(master.items()))
 
 with open(outputFname, 'w') as outputFile:    
