@@ -36,6 +36,7 @@ with open(inputFname, 'r') as inputFile:
     for line in inputFile:
         # get rid of newline characters
         line = line.strip()
+        line = re.sub('[!@#$-:,;"]', ' ', line)
         # split line on whitespace and punctuation
         line = re.split('[ \t]', line)
         
@@ -46,7 +47,10 @@ with open(inputFname, 'r') as inputFile:
             
 master  = dict(sorted(master.items()))
 
-for key in master:
-    value = master[key]
-    print ("%s %s\n" % (key, value))
+with open(outputFname, 'w') as outputFile:    
+    for key in master:
+        value = master[key]
+        outputFile.write ("%s %s\n" % (key, value))
+        
+    outputFile.close()
     
